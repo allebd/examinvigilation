@@ -10,6 +10,7 @@
 								<tr>
 									<th></th>
 									<th>Name</th>
+									<th>Code</th>
 									<th></th>
 									<th></th>
 								</tr>
@@ -24,6 +25,7 @@
 								<tr>									
 									<td><?=$serial;?></td>
 									<td><?=ucwords($row->lecturerTitle);?> <?=ucwords($row->lecturerName);?></td>
+									<td><?=ucwords($row->lecturerCode);?></td>
 									<td><a href="<?=base_url();?>dashboard/editinvigilator/<?=$row->loginId;?>" class="btn btn-default">Edit</a></td>
 									<td><a href="<?=base_url();?>dashboard/deleteinvigilator/<?=$row->loginId;?>" class="btn btn-default">Delete</a></td>
 								</tr>

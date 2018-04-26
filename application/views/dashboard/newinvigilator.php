@@ -19,6 +19,9 @@
                                     		<option value='Engr.'>Engr.</option>
                                     		<option value='Arch.'>Arch.</option>
                                     	<select>
+									</div>									
+									<div class="form-group">
+										<input type="text" class="form-control" name='lecturerCode' placeholder="Lecturer Code" required>
 									</div>
                                     <div class="form-group">
 										<input type="text" class="form-control" name='lecturerName' placeholder="Lecturer Name" required>
@@ -41,7 +44,7 @@
 										<input type='text' value='' name='lecturerCourses' id="courses" class="form-control" data-suggestions="<?php foreach($courses->result() as $crow):?><?=$crow->courseName?>,<?php endforeach; ?>">
 									</div>
 									<div class="form-group">
-										<input type='text' value='' name='lecturerDates' id="examdate" class="form-control" data-suggestions="<?php foreach($examdates->result() as $erow):?><?=date_format(date_create($erow->examDate), 'l F jS Y').' ('.$erow->examSession.')';?>,<?php endforeach; ?>">
+										<input type='text' value='' name='lecturerDates' id="examdate" class="form-control" data-suggestions="<?php foreach($examdates->result() as $erow):?><?=date_format(date_create($erow->examDate), 'l F jS Y');?>,<?php endforeach; ?>">
 									</div>
 									<button type="submit" class="btn btn-default"><i class="fa fa-floppy-o"></i> Save</button>
 								<?php echo form_close();?>

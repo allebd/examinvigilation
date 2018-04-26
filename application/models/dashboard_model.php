@@ -58,6 +58,7 @@ class Dashboard_model extends CI_Model {
  			'loginId' => $theId,
  			'lecturerDept' => $this->input->post('lecturerDept'),
 			'lecturerTitle' => $this->input->post('lecturerTitle'),
+			'lecturerCode' => $this->input->post('lecturerCode'),
 			'lecturerName' => $this->input->post('lecturerName'),
 			'lecturerEmail' => $this->input->post('lecturerEmail'),
 			'lecturerPhone' => $this->input->post('lecturerPhone'),
@@ -77,9 +78,8 @@ class Dashboard_model extends CI_Model {
 		foreach($examdates->result() as $trow)
 		{
 			$examDate = $trow->examDate;
-			$examSession = $trow->examSession;
 
-			$theexam = date_format(date_create($examDate), 'l F jS Y').' ('.$examSession.')';
+			$theexam = date_format(date_create($examDate), 'l F jS Y');
 
 			$this->db->like('lecturerDates', $theexam);
 			$lecturerDates = $this->db->get('lecturers');
@@ -89,6 +89,7 @@ class Dashboard_model extends CI_Model {
 				$courseExamDateId = $this->uri->segment(3);
 				$lecturerId = '"'.$lrow->lecturerId.'"';
 				$thelecturerId = $lrow->lecturerId;
+				$comathelecturerId = ','.$thelecturerId;
 				$lecturerCourses = '("'.$lrow->lecturerCourses.'")';
 				$lecturerCourses = str_replace(',', '","', $lecturerCourses);
 
@@ -98,7 +99,7 @@ class Dashboard_model extends CI_Model {
 				foreach($gettimecode->result() as $gtrow)
 				{
 					$thetimecode = $gtrow->courseId;
-					$theupdatefirst = $this->db->query("UPDATE timetable SET invigilatorId = '', invigilatorCount = 0 WHERE courseExamDateId='$courseExamDateId' AND invigilatorId LIKE '%$thelecturerId%'");
+					$theupdatefirst = $this->db->query("UPDATE timetable SET invigilatorId = REPLACE(invigilatorId,'$comathelecturerId',''), invigilatorCount = invigilatorCount-1 WHERE courseExamDateId='$courseExamDateId' AND invigilatorId LIKE '%$thelecturerId%'");
 					$theupdate = "UPDATE timetable SET invigilatorId = CONCAT(invigilatorId,',',$lecturerId), invigilatorCount = invigilatorCount+1 WHERE courseId='$thetimecode'";
 
 					$data['update'] = $this->db->query($theupdate);
@@ -125,6 +126,7 @@ class Dashboard_model extends CI_Model {
 			'lecturerDept' => $this->input->post('lecturerDept'),
 			'lecturerTitle' => $this->input->post('lecturerTitle'),
 			'lecturerName' => $this->input->post('lecturerName'),
+			'lecturerCode' => $this->input->post('lecturerCode'),
 			'lecturerEmail' => $this->input->post('lecturerEmail'),
 			'lecturerPhone' => $this->input->post('lecturerPhone'),
 			'lecturerCourses' => $lecturerCourses,

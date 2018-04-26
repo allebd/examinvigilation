@@ -9,7 +9,7 @@
 						<select name='examdates' required onchange="location = this.value;">
 							<option selected disabled>--- Select Exam Date ---</option>
 							<?php foreach($examdates->result() as $row): ?>																
-							<option value = '<?=base_url();?>dashboard/posting/<?=$row->examDateId;?>' ><?=date_format(date_create($row->examDate), 'l F jS, Y').' ('.$row->examSession.')';?></option>
+							<option value = '<?=base_url();?>dashboard/posting/<?=$row->examDateId;?>' ><?=date_format(date_create($row->examDate), 'l F jS, Y');?></option>
 							<?php endforeach; ?>							
 						</select>
 	
@@ -21,7 +21,7 @@
 
 							 foreach($timedate->result() as $trow):
 						?>
-						<h5><strong><?=date_format(date_create($trow->examDate), 'l F jS, Y').' ('.$trow->examSession.')';?></strong></h5>
+						<h5><strong><?=date_format(date_create($trow->examDate), 'l F jS, Y');?></strong></h5>
 						<?php
 							endforeach; 
 						?>						
@@ -36,6 +36,7 @@
 								<tr>
 									<th>Course</th>
 									<th>Venue</th>
+									<th>Session</th>
 									<th>Invigilator</th>
 								</tr>
 							</thead>
@@ -45,6 +46,7 @@
 								<tr>									
 									<td><?=$mrow->courseName;?></td>
 									<td><?=$mrow->courseVenue;?></td>
+									<td><?=$mrow->courseSession;?></td>
 									<td>
 										<?php
 											$invigilatorId = '('.$mrow->invigilatorId.')';
@@ -52,13 +54,13 @@
 											$invigilatorId = str_replace(',)', ')', $invigilatorId);
 											$invigilatorId2 = $mrow->invigilatorId;
 											if($invigilatorId2 != ''){
-											$gettingInvigilator = "SELECT lecturerTitle, lecturerName FROM lecturers WHERE lecturerId IN $invigilatorId";
+											$gettingInvigilator = "SELECT lecturerCode FROM lecturers WHERE lecturerId IN $invigilatorId";
 											$getinvigilator = $this->db->query($gettingInvigilator);
 
 											if($getinvigilator->num_rows() > 0){
 											foreach($getinvigilator->result() as $inrow){ 
 										?>
-										<?=ucwords($inrow->lecturerTitle);?> <?=ucwords($inrow->lecturerName);?>, 
+										<?=ucwords($inrow->lecturerCode);?>, 
 										<?php 
 												}
 											}

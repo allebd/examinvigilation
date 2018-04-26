@@ -20,6 +20,9 @@
                                     	<select>
 									</div>
 									<div class="form-group">
+										<input type="text" class="form-control" name='lecturerCode' value="<?=$row->lecturerCode;?>" required>
+									</div>
+									<div class="form-group">
 										<input type="text" class="form-control" name='lecturerName' value="<?=$row->lecturerName;?>" required />
 									</div>
 									<div class="form-group">
@@ -40,7 +43,7 @@
 										<input type='text' name='lecturerCourses' id="e_courses" class="form-control" value="<?=$row->lecturerCourses;?>" data-suggestions="<?php foreach($courses->result() as $crow):?><?=$crow->courseName?>,<?php endforeach; ?>">
 									</div>
 									<div class="form-group">
-										<input type='text' name='lecturerDates' id="e_examdate" class="form-control" value="<?=$row->lecturerDates;?>"  data-suggestions="<?php foreach($examdates->result() as $erow):?><?=date_format(date_create($erow->examDate), 'l F jS Y').' ('.$erow->examSession.')';?>,<?php endforeach; ?>">
+										<input type='text' name='lecturerDates' id="e_examdate" class="form-control" value="<?=$row->lecturerDates;?>"  data-suggestions="<?php foreach($examdates->result() as $erow):?><?=date_format(date_create($erow->examDate), 'l F jS Y');?>,<?php endforeach; ?>">
 									</div>
 									<button type="submit" class="btn btn-default mb10"><i class="fa fa-floppy-o"></i> Save</button>
 								<?php echo form_close();?>

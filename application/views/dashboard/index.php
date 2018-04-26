@@ -9,7 +9,7 @@
 						<select name='examdates' required onchange="location = this.value;">
 							<option selected disabled>--- Select Exam Date ---</option>
 							<?php foreach($examdates->result() as $row): ?>																
-							<option value = '<?=base_url();?>dashboard/posting/<?=$row->examDateId;?>' ><?=date_format(date_create($row->examDate), 'l F jS, Y').' ('.$row->examSession.')';?></option>
+							<option value = '<?=base_url();?>dashboard/posting/<?=$row->examDateId;?>' ><?=date_format(date_create($row->examDate), 'l F jS, Y');?></option>
 							<?php endforeach; ?>							
 						</select>
 					</div>
