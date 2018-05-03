@@ -90,10 +90,17 @@ class Dashboard_model extends CI_Model {
 				$lecturerId = '"'.$lrow->lecturerId.'"';
 				$thelecturerId = $lrow->lecturerId;
 				$comathelecturerId = ','.$thelecturerId;
-				$lecturerCourses = '("'.$lrow->lecturerCourses.'")';
-				$lecturerCourses = str_replace(',', '","', $lecturerCourses);
+				// $lecturerCourses = '("'.$lrow->lecturerCourses.'")';
+				// $lecturerCourses = str_replace(',', '","', $lecturerCourses);
+				$lecturerCourses = $lrow->lecturerCourses;
+				$lecturerCourse = explode(',',$lecturerCourses);
+				$course = '';
+				for($theCourse = 0; $theCourse < count($theCourse); $theCourse++)
+				{
+					$course = $course."courseName NOT LIKE '%".$lecturerCourse[$theCourse]."%' AND ";
+				}
 
-				$gettingtimecode = "SELECT courseId FROM timetable WHERE courseName NOT IN $lecturerCourses AND invigilatorId NOT LIKE '%$thelecturerId%' AND courseExamDateId='$courseExamDateId' AND invigilatorCount < 3 ORDER BY invigilatorCount ASC LIMIT 1";
+				$gettingtimecode = "SELECT courseId FROM timetable WHERE $course invigilatorId NOT LIKE '%$thelecturerId%' AND courseExamDateId='$courseExamDateId' AND invigilatorCount < 3 ORDER BY invigilatorCount ASC LIMIT 1";
 				$gettimecode = $this->db->query($gettingtimecode);
 
 				foreach($gettimecode->result() as $gtrow)
